@@ -1,5 +1,5 @@
 from lxml import html
-import requests, os 
+import requests, os, shutil
 import pdb
 url = "http://www.presidency.ucsb.edu/debates.php"
 
@@ -28,36 +28,28 @@ for tr in trs:
     elif 'democrat' in tr.text_content().lower():
         dems.append((date,href))
 
-if not os.path.exists("./data"):
-    os.mkdir("./data")
-if not os.path.exists("./data/repub2016"):
-    os.mkdir("./data/repub2016")
-if not os.path.exists("./data/dem2016"):
-    os.mkdir("./data/dem2016")
+## clear the data folder
+if os.path.exists("./rawdata"):
+    shutil.rmtree("./rawdata")
+os.mkdir("./rawdata")
+os.mkdir("./rawdata/repub2016")
+os.mkdir("./rawdata/dem2016")
 
-for date,url in reps:
-    d  ="./data/repub2016/" + "_".join(date.strip().split(" ")).lower()
-    if os.path.exists(d):
-        d += "_undercard"
-    d = d.replace(",","")
-    with open(d,'w') as f:
-        r = requests.get(url)
-        tree = html.fromstring(r.content)
-        text = tree.xpath('//span[@class="displaytext"]')
-        if not len(text) == 1:
-            print("ERROR WITH " + d)
-            continue
-        f.write(text[0].text_content())
-for date,url in dems:
-    d  ="./data/dem2016/" + "_".join(date.strip().split(" ")).lower()
-    if os.path.exists(d):
-        d += "_undercard"
-    d = d.replace(",","")
-    with open(d,'w') as f:
-        r = requests.get(url)
-        tree = html.fromstring(r.content)
-        text = tree.xpath('//span[@class="displaytext"]')
-        if not len(text) == 1:
-            print("ERROR WITH " + d)
-            continue
-        f.write(text[0].text_content())
+def save_to_file(l, file_prefix):
+    for date,url in l:
+        d  = file_prefix + "_".join(date.strip().split(" ")).lower()
+        d = d.replace(",","")
+        if os.path.exists(d):
+            d += "_undercard"
+        with open(d,'w') as f:
+            r = requests.get(url)
+            tree = html.fromstring(r.content)
+            text = tree.xpath('//span[@class="displaytext"]')
+            if not len(text) == 1:
+                print("ERROR WITH " + d)
+                continue
+            f.write(text[0].text_content())
+
+
+save_to_file(reps, "./rawdata/repub2016/")
+save_to_file(dems, "./rawdata/dem2016/")
