@@ -37,6 +37,9 @@ if not os.path.exists("./data/dem2016"):
 
 for date,url in reps:
     d  ="./data/repub2016/" + "_".join(date.strip().split(" ")).lower()
+    if os.path.exists(d):
+        d += "_undercard"
+    d = d.replace(",","")
     with open(d,'w') as f:
         r = requests.get(url)
         tree = html.fromstring(r.content)
@@ -47,6 +50,9 @@ for date,url in reps:
         f.write(text[0].text_content())
 for date,url in dems:
     d  ="./data/dem2016/" + "_".join(date.strip().split(" ")).lower()
+    if os.path.exists(d):
+        d += "_undercard"
+    d = d.replace(",","")
     with open(d,'w') as f:
         r = requests.get(url)
         tree = html.fromstring(r.content)
