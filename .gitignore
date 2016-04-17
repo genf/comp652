@@ -1,4 +1,6 @@
 *~
 *pyc
-rawdata
-data
+rawdata/*
+data/*
+read/*
+!jfk
