@@ -24,16 +24,28 @@ def build_data_cv(input_file, cv=10, clean_string=True):
                 train_flag = 1 
                 for word in words:
                     vocab[word] += 1
-            if len(text.split()) > 10000:
-                print speaker
-                print text[:500]
-                return revs, vocab
-            datum  = {"y":int(dem_flag),
-                      "speaker": speaker, 
-                      "text": text,                             
-                      "num_words": len(text.split()),
-                      "split": np.random.randint(0,cv),
-                      "train_flag": train_flag}
+            if len(text.split()) > 100:
+                sentences = [sent.strip() for sent in text.split(".") if len(sent.strip())>5]
+                for sent in sentences:
+                    if len(sent.split())>1000:
+                        import pdb
+                        pdb.set_trace()
+                        print speaker
+                        print sent[:500]
+                        return revs, vocab
+                    datum  = {"y":int(dem_flag),
+                              "speaker": speaker, 
+                              "text": sent,                             
+                              "num_words": len(sent.split()),
+                              "split": np.random.randint(0,cv),
+                              "train_flag": train_flag}
+            else:
+                datum  = {"y":int(dem_flag),
+                          "speaker": speaker, 
+                          "text": text,                             
+                          "num_words": len(text.split()),
+                          "split": np.random.randint(0,cv),
+                          "train_flag": train_flag}
             revs.append(datum)
     return revs, vocab
     
