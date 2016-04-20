@@ -15,31 +15,21 @@ def build_data_cv(input_file, cv=10, clean_string=True):
             if not line.strip():
                 continue
             text, dem_flag, speaker = [l.strip() for l in line.split("\t")]
-            if clean_string:
-                text = text.lower()       
-                text = clean_str(text)
             words = set(text.split())
             train_flag = 0
             if speaker in ('REAGAN','JFK'):
                 train_flag = 1 
                 for word in words:
                     vocab[word] += 1
-            if len(text.split()) > 100:
-                sentences = [sent.strip() for sent in text.split(".") if len(sent.strip())>5]
-                for sent in sentences:
-                    if len(sent.split())>1000:
-                        import pdb
-                        pdb.set_trace()
-                        print speaker
-                        print sent[:500]
-                        return revs, vocab
-                    datum  = {"y":int(dem_flag),
-                              "speaker": speaker, 
-                              "text": sent,                             
-                              "num_words": len(sent.split()),
-                              "split": np.random.randint(0,cv),
-                              "train_flag": train_flag}
+            if len(text.split()) > 200:
+                print speaker
+                print sent[:199]
+                print "That's a LONG sentence"
+                sys.exit(1)
             else:
+                if clean_string:
+                    text = text.lower()       
+                    text = clean_str(text)
                 datum  = {"y":int(dem_flag),
                           "speaker": speaker, 
                           "text": text,                             
@@ -102,13 +92,16 @@ def clean_str(string, TREC=False):
     Tokenization/string cleaning for all datasets except for SST.
     Every dataset is lower cased except for TREC
     """
-    string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)     
-    string = re.sub(r"\'s", " \'s", string) 
-    string = re.sub(r"\'ve", " \'ve", string) 
-    string = re.sub(r"n\'t", " n\'t", string) 
-    string = re.sub(r"\'re", " \'re", string) 
-    string = re.sub(r"\'d", " \'d", string) 
-    string = re.sub(r"\'ll", " \'ll", string) 
+    string = re.sub(r"[^A-Za-z0-9(),!?\']", " ", string)   
+    # in my opinion we should either lemmatize or keep 
+    # contractions as they are   
+    # string = re.sub(r"\'s", " \'s", string) 
+    # string = re.sub(r"\'ve", " \'ve", string) 
+    # string = re.sub(r"n\'t", " n\'t", string) 
+    # string = re.sub(r"\'re", " \'re", string) 
+    # string = re.sub(r"\'d", " \'d", string) 
+    # string = re.sub(r"\'ll", " \'ll", string) 
+    ## Do we want to remove punctuation?
     string = re.sub(r",", " , ", string) 
     string = re.sub(r"!", " ! ", string) 
     string = re.sub(r"\(", " \( ", string) 

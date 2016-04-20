@@ -275,7 +275,7 @@ def make_idx_data_cv(revs, word_idx_map, cv, max_l=51, k=300, filter_h=5):
     for rev in revs:
         sent = get_idx_from_sent(rev["text"], word_idx_map, max_l, k, filter_h)   
         sent.append(rev["y"])
-        if rev["split"]==cv:            
+        if rev["train_flag"]:            
             test.append(sent)        
         else:  
             train.append(sent)   
@@ -311,7 +311,7 @@ if __name__=="__main__":
     results = []
     r = range(0,10)    
     for i in r:
-        datasets = make_idx_data_cv(revs, word_idx_map, i, max_l=56,k=300, filter_h=5)
+        datasets = make_idx_data_cv(revs, word_idx_map, i, max_l=183,k=300, filter_h=5)
         perf = train_conv_net(datasets,
                               U,
                               lr_decay=0.95,

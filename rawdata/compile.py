@@ -54,16 +54,26 @@ for f in os.listdir("./jfk"):
 for k,v in text.items():
         print(k + ":   " + str(len(v)))
 
+cnt = 0 
 with open('output.csv','w') as out:
 	for cand in text:
 		dem_flag = int(cand in dems)
 		for line in text[cand]:
 			if len(line)<65:
 				continue
-			
-			out.write("\t".join([line,str(dem_flag),cand]))
-			out.write("\n\r")
+			## Let's split long documents into sentences
+			if len(line.split())>100:
+				sentences = [sent.strip() for sent in line.split(".") if len(sent.strip())>5]
+				for sent in sentences:
+					cnt += 1 
+					out.write("\t".join([sent,str(dem_flag),cand]))
+					out.write("\n\r")
+			else:
+				cnt += 1
+				out.write("\t".join([line,str(dem_flag),cand]))
+				out.write("\n\r")
 
+print "Total size " + str(cnt)
 # TODO 
 # Wall Street.I  believe <---- gotta add a space there
 # Remove [Applause] 
