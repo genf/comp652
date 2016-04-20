@@ -5,3 +5,4 @@ data/*
 read/*
 !jfk
 !reagan
+!*.csv
