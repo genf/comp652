@@ -6,3 +6,4 @@ read/*
 !jfk
 !reagan
 !*.csv
+!*.py
