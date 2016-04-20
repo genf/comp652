@@ -32,7 +32,7 @@ for f in os.listdir("./repub2016"):
 	clean("./repub2016/"+ f)
 
 
-pattern2 = r'(\n|\r){3,}'
+pattern2 = r'(\n|\r){2,}'
 text["REAGAN"] = []
 for f in os.listdir("./reagan"):
 	if not f.endswith(".txt"):
