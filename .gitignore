@@ -8,3 +8,4 @@ read/*
 !*.csv
 !*.py
 mr.p
+.nf*

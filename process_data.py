@@ -14,7 +14,7 @@ def build_data_cv(input_file, cv=10, clean_string=True):
         for line in f:
             if not line.strip():
                 continue
-            text, dem_flag, speaker = [l.strip() for l in line.split("\t")]
+            id_num, text, dem_flag, speaker = [l.strip() for l in line.split("\t")]
             words = set(text.split())
             train_flag = 0
             if speaker in ('REAGAN','JFK'):
@@ -31,6 +31,7 @@ def build_data_cv(input_file, cv=10, clean_string=True):
                     text = text.lower()       
                     text = clean_str(text)
                 datum  = {"y":int(dem_flag),
+                          "id":id_num,
                           "speaker": speaker, 
                           "text": text,                             
                           "num_words": len(text.split()),

@@ -54,7 +54,7 @@ for f in os.listdir("./jfk"):
 for k,v in text.items():
         print(k + ":   " + str(len(v)))
 
-cnt = 0 
+cnt = 1 
 with open('output.csv','w') as out:
 	for cand in text:
 		dem_flag = int(cand in dems)
@@ -65,13 +65,13 @@ with open('output.csv','w') as out:
 			if len(line.split())>100:
 				sentences = [sent.strip() for sent in line.split(".") if len(sent.strip())>5]
 				for sent in sentences:
-					cnt += 1 
-					out.write("\t".join([sent,str(dem_flag),cand]))
+					out.write("\t".join([str(cnt), sent,str(dem_flag),cand]))
 					out.write("\n\r")
+					cnt += 1 
 			else:
-				cnt += 1
-				out.write("\t".join([line,str(dem_flag),cand]))
+				out.write("\t".join([str(cnt), line,str(dem_flag),cand]))
 				out.write("\n\r")
+				cnt += 1 
 
 print "Total size " + str(cnt)
 # TODO 
