@@ -1,0 +1,315 @@
+JFK
+
+[[u'world peace']
+ [u'free world']
+ [u'soviet union']
+ [u'southeast asia']
+ [u'united nations']
+ [u'nations world']
+ [u'peace freedom']
+ [u'national independence']
+ [u'arms race']
+ [u'secretary state']]
+
+
+
+WEBB
+
+[[u'criminal justice']
+ [u'justice reform']
+ [u'financial sector']
+ [u'10 minutes']
+ [u'democratic party']
+ [u'power financial']
+ [u'address climate']
+ [u'cyber warfare']
+ [u'senator sanders']
+ [u'issues work']]
+
+
+
+PERRY
+
+[[u'economy world']
+ [u'securing border']
+ [u'state texas']
+ [u'thing lot']
+ [u'going use']
+ [u'tell thing']
+ [u'carly fiorina']
+ [u'14 years']
+ [u'issue congress']
+ [u'great depression']]
+
+
+
+RUBIO
+
+[[u'21st century']
+ [u'free enterprise']
+ [u'immigration control']
+ [u'illegal immigration']
+ [u'paycheck paycheck']
+ [u'hes doing']
+ [u'second amendment']
+ [u'legal immigration']
+ [u'conservative movement']
+ [u'new american']]
+
+
+
+KASICH
+
+[[u'balanced budget']
+ [u'000 jobs']
+ [u'economic growth']
+ [u'cut taxes']
+ [u'state ohio']
+ [u'400 000']
+ [u'18 years']
+ [u'tax cuts']
+ [u'end day']
+ [u'north korea']]
+
+
+
+GRAHAM
+
+[[u'win war']
+ [u'iraq afghanistan']
+ [u'ground force']
+ [u'youre ready']
+ [u'afford lose']
+ [u'destroy caliphate']
+ [u'33 years']
+ [u'fighting war']
+ [u'ground forces']
+ [u'defend nation']]
+
+
+
+SANTORUM
+
+[[u'american workers']
+ [u'whos going']
+ [u'20 percent']
+ [u'flat tax']
+ [u'bell rings']
+ [u'nuclear program']
+ [u'savings accounts']
+ [u'percent flat']
+ [u'ladies gentlemen']
+ [u'manufacturing jobs']]
+
+
+
+FIORINA
+
+[[u'page tax']
+ [u'status quo']
+ [u'political class']
+ [u'zero based']
+ [u'great nation']
+ [u'make tough']
+ [u'people iowa']
+ [u'government gets']
+ [u'25 years']
+ [u'000 jobs']]
+
+
+
+BUSH
+
+[[u'simple fact']
+ [u'proven record']
+ [u'destroy isis']
+ [u'state florida']
+ [u'governor state']
+ [u'legal status']
+ [u'send signal']
+ [u'heres deal']
+ [u'sustained economic']
+ [u'leadership world']]
+
+
+
+WALKER
+
+[[u'people skills']
+ [u'obama clinton']
+ [u'big bold']
+ [u'minimum wage']
+ [u'people america']
+ [u'bad deal']
+ [u'manufacturing jobs']
+ [u'whats wrong']
+ [u'took big']
+ [u'defunded planned']]
+
+
+
+JINDAL
+
+[[u'government spending']
+ [u'idea america']
+ [u'size government']
+ [u'american economy']
+ [u'cut government']
+ [u'26 percent']
+ [u'cutting government']
+ [u'rid corporate']
+ [u'government economy']
+ [u'grow government']]
+
+
+
+REAGAN
+
+[[u'soviet union']
+ [u'el salvador']
+ [u'central america']
+ [u'arms control']
+ [u'human rights']
+ [u'mr president']
+ [u'nuclear weapons']
+ [u'united nations']
+ [u'freedom fighters']
+ [u'tax rates']]
+
+
+
+CHAFEE
+
+[[u'rhode island']
+ [u'youre looking']
+ [u'fourth amendment']
+ [u'patriot act']
+ [u'income inequality']
+ [u'iran deal']
+ [u'weapons mass']
+ [u'mass destruction']
+ [u'end wars']
+ [u'anderson thank']]
+
+
+
+HUCKABEE
+
+[[u'fair tax']
+ [u'security medicare']
+ [u'think lot']
+ [u'rid taxes']
+ [u'lot americans']
+ [u'people poor']
+ [u'people social']
+ [u'let finish']
+ [u'90 percent']
+ [u'free college']]
+
+
+
+CRUZ
+
+[[u'flat tax']
+ [u'radical islamic']
+ [u'islamic terrorism']
+ [u'religious liberty']
+ [u'second amendment']
+ [u'harry reid']
+ [u'working men']
+ [u'bell rings']
+ [u'jeff sessions']
+ [u'air power']]
+
+
+
+PAUL
+
+[[u'regime change']
+ [u'border security']
+ [u'iraq war']
+ [u'payroll tax']
+ [u'tax cut']
+ [u'million dollars']
+ [u'fiscal conservative']
+ [u'medical marijuana']
+ [u'position strength']
+ [u'tax plan']]
+
+
+
+SANDERS
+
+[[u'secretary clinton']
+ [u'wall street']
+ [u'country earth']
+ [u'fossil fuel']
+ [u'care people']
+ [u'campaign finance']
+ [u'colleges universities']
+ [u'public colleges']
+ [u'fuel industry']
+ [u'tuition free']]
+
+
+
+CLINTON
+
+[[u'senator sanders']
+ [u'affordable care']
+ [u'care act']
+ [u'wall street']
+ [u'new york']
+ [u'comprehensive immigration']
+ [u'immigration reform']
+ [u'secretary state']
+ [u'dodd frank']
+ [u'security council']]
+
+
+
+TRUMP
+
+[[u'dont win']
+ [u'eminent domain']
+ [u'just tell']
+ [u'going bring']
+ [u'atlantic city']
+ [u'ive seen']
+ [u'look whats']
+ [u'dont like']
+ [u'whats happening']
+ [u'world trade']]
+
+
+
+CHRISTIE
+
+[[u'new jersey']
+ [u'law enforcement']
+ [u'seven years']
+ [u'make decisions']
+ [u'trade center']
+ [u'spent seven']
+ [u'fbi director']
+ [u'september 11th']
+ [u'tax increases']
+ [u'justice department']]
+
+
+
+CARSON
+
+[[u'fact matter']
+ [u'kinds things']
+ [u'rich people']
+ [u'political correctness']
+ [u'just want']
+ [u'rid deductions']
+ [u'make 10']
+ [u'start thinking']
+ [u'minimum wage']
+ [u'dont time']]
+
+
+
