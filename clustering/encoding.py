@@ -64,7 +64,7 @@ if __name__=='__main__':
     csv_file = "../rawdata/output.csv"
 
     speaches, speakers = csv_to_array(csv_file)
-    vec = TfidfVectorizer(stop_words='english',strip_accents='ascii',min_df=2,ngram_range=(1,2))
+    vec = TfidfVectorizer(stop_words='english',strip_accents='ascii',min_df=2,ngram_range=(1,1))
     count_vec = TfidfVectorizer(stop_words='english',strip_accents='ascii',min_df=2, ngram_range=(1,2))
     Xp = count_vec.fit_transform(speaches)
     oldies = defaultdict(float)
@@ -72,36 +72,36 @@ if __name__=='__main__':
     fnames = np.array(count_vec.get_feature_names()).reshape((-1,1))
     num_new = len(speakers) - 2
     num_old = 2
-    for cnt, row in enumerate(Xp):
-        # import pdb
-        # pdb.set_trace()
-        row = np.array(row.toarray())
-        top = row.argsort().ravel()[-100:][::-1]
+    # for cnt, row in enumerate(Xp):
+    #     # import pdb
+    #     # pdb.set_trace()
+    #     row = np.array(row.toarray())
+    #     top = row.argsort().ravel()[-100:][::-1]
 
-        flat = [x[0] for x in fnames[top].tolist()]
-        for word in flat:
-            if speakers[cnt] in ('REAGAN','JFK'):
-                oldies[word]+=1
-            else:
-                new[word]+=1
-        # print speakers[cnt]
-        # print fnames[top]
-        # print "\n\n"
-    print "oldies"
-    for word, cnt in oldies.items():
-        if word in new:
-            continue
-        print word + " " +str(cnt)
-    print "\n\n\n"
-    print "new guys"
-    for word, cnt in new.items():
-        if cnt> float(num_new)/5 and not word in oldies:
-            print word + " " +str(cnt)
-    print "\n\n\n"
-    inter = set(oldies.keys()) & set(new.keys())
-    print inter
+    #     flat = [x[0] for x in fnames[top].tolist()]
+    #     for word in flat:
+    #         if speakers[cnt] in ('REAGAN','JFK'):
+    #             oldies[word]+=1
+    #         else:
+    #             new[word]+=1
+    #     # print speakers[cnt]
+    #     # print fnames[top]
+    #     # print "\n\n"
+    # print "oldies"
+    # for word, cnt in oldies.items():
+    #     if word in new:
+    #         continue
+    #     print word + " " +str(cnt)
+    # print "\n\n\n"
+    # print "new guys"
+    # for word, cnt in new.items():
+    #     if cnt> float(num_new)/5 and not word in oldies:
+    #         print word + " " +str(cnt)
+    # print "\n\n\n"
+    # inter = set(oldies.keys()) & set(new.keys())
+    # print inter
 
-    sys.exit(0)
+    # sys.exit(0)
     X = vec.fit_transform(speaches)
 
 
@@ -117,8 +117,8 @@ if __name__=='__main__':
             speaks.append(speaker)
             speeches.append(text)
     X = vec.fit_transform(speeches)
-    clust = 4
-    est = KMeans(n_clusters=clust, n_init=20)
+    clust = 5
+    est = KMeans(n_clusters=clust, n_init=10)
     est.fit(X)
     labels = [[] for _ in range(clust)]
     for speaker, label in zip(speaks,est.labels_):
