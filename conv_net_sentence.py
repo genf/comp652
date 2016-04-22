@@ -13,7 +13,7 @@ import numpy as np
 from collections import defaultdict, OrderedDict
 import theano
 import theano.tensor as T
-import re
+import re, pdb
 import warnings
 import sys, json
 import time
@@ -37,7 +37,7 @@ def Iden(x):
 def train_conv_net(datasets,
                    U,
                    current_candidates,
-                   img_w=300, 
+                   img_w=100, 
                    filter_hs=[3,4,5],
                    hidden_units=[100,2], 
                    dropout_rate=[0.5],
@@ -48,7 +48,8 @@ def train_conv_net(datasets,
                    conv_non_linear="relu",
                    activations=[Iden],
                    sqr_norm_lim=9,
-                   non_static=True):
+                   non_static=True,
+                   iteration_num=0):
     """
     Train a simple conv net
     img_h = sentence length (padded where necessary)
@@ -71,7 +72,7 @@ def train_conv_net(datasets,
                   ("dropout", dropout_rate), ("batch_size",batch_size),("non_static", non_static),
                     ("learn_decay",lr_decay), ("conv_non_linear", conv_non_linear), ("non_static", non_static)
                     ,("sqr_norm_lim",sqr_norm_lim),("shuffle_batch",shuffle_batch)]
-    print parameters    
+    # print parameters    
     
     #define model architecture
     index = T.lscalar()
@@ -166,6 +167,7 @@ def train_conv_net(datasets,
         if name not in candidates:
             candidates[name] = {'ids':[],'means':np.zeros((1,2)), 'extremes':[]}
         candidates[name]['ids'].append((cnt, idnum))
+        cnt += 1
         all_sents.append(vals['sent_vector'].ravel())
 
     all_sents = np.asarray(all_sents, 'int')
@@ -185,11 +187,11 @@ def train_conv_net(datasets,
     val_perf = 0
     test_perf = 0       
     cost_epoch = 0    
-    import pdb
     # Candidates maps name to a dict
     # the dict has a list of (indexes into all_sents, idnum in the CSV)
     # The cumulative mean of all sentences
     # and the ids of any sentences which are particularly one way or the other
+    validation_errors = []
     while (epoch < n_epochs):
         start_time = time.time()
         epoch = epoch + 1
@@ -207,13 +209,16 @@ def train_conv_net(datasets,
         train_losses = [test_model(i) for i in xrange(n_train_batches)]
         train_perf = 1 - np.mean(train_losses)
         val_losses = [val_model(i) for i in xrange(n_val_batches)]
-        val_perf = 1- np.mean(val_losses)                  
-        print('epoch: %i, training time: %.2f secs, train perf: %.2f %%, val perf: %.2f %%' % (epoch, time.time()-start_time, train_perf * 100., val_perf*100.))
+        val_perf = 1- np.mean(val_losses)
+        validation_errors.append(val_perf)                  
+        print('\tepoch: %i, training time: %.2f secs, train perf: %.2f %%, val perf: %.2f %%' % (epoch, time.time()-start_time, train_perf * 100., val_perf*100.))
         if val_perf >= best_val_perf:
             best_val_perf = val_perf
             test_loss = test_model_all(test_set_x,test_set_y)        
             test_perf = 1- test_loss
-
+        # if val_perf < max(validation_errors) and epoch>(float(n_epochs)*2.0/3.0):
+        #     break
+ 
     for name, val in candidates.items():
         for idnum,csv_num in val['ids']:
             ps = get_probs(all_sents[idnum,:].reshape(1,-1))
@@ -226,7 +231,9 @@ def train_conv_net(datasets,
         val['means'] = val['means'] / val['means'].sum()
         val['means'] = val['means'].tolist()
         val['ids'] = []
-    with open("out.json","w") as out:
+    candidates['params'] = parameters
+    candidates['performance'] = test_perf
+    with open("out_"+str(iteration_num)+".json","w") as out:
         json.dump(candidates, out)
     return test_perf
 
@@ -353,8 +360,7 @@ def make_idx_data_cv(revs, word_idx_map, cv, max_l=51, k=300, filter_h=5):
         test_reag.pop()
     test = test_reag + test_jfk
     shuffle(test)
-    train = np.array(train, dtype="int")
-    test = train[:25,:]
+    test = np.array(test, dtype="int")
     print "Train set size " + str(train.shape[0])
     print "Test set size " + str(test.shape[0])
     return [train, test], test_sents     
@@ -385,22 +391,28 @@ if __name__=="__main__":
     #     print "using: word2vec vectors"
     #     U = W
     results = []
-    r = range(11,12)    
-    for i in r:
-        datasets, current_candidates = make_idx_data_cv(revs, word_idx_map, i, max_l=183,k=300, filter_h=5)
+    r = range(0,9)
+    hyper_params = [(0.5,15,9),(0.3,15,9),(0.7,15,9),(0.5,15,15),(0.3,25,15),(0.7,25,15),(0.5,25,6),(0.3,25,6),(0.7,25,6)]
+    datasets, current_candidates = make_idx_data_cv(revs, word_idx_map, 1, max_l=183,k=100, filter_h=5)    
+    for i in range(len(hyper_params)):
+        dropout, n_epochs, sqr_norm_lim = hyper_params[i]
         perf = train_conv_net(datasets,
                               U,
                               current_candidates,
+                              img_w=100,
                               lr_decay=0.95,
                               filter_hs=[3,4,5],
                               conv_non_linear="relu",
                               hidden_units=[100,2], 
                               shuffle_batch=True, 
-                              n_epochs=6, 
-                              sqr_norm_lim=9,
+                              n_epochs=n_epochs, 
+                              sqr_norm_lim=sqr_norm_lim,
                               non_static=non_static,
                               batch_size=50,
-                              dropout_rate=[0.9])
+                              dropout_rate=[dropout],
+                              iteration_num = i)
         print "cv: " + str(i) + ", perf: " + str(perf)
-        results.append(perf)  
+        print "dropout: " + str(dropout) + "  sqr_norm_lim: " + str(sqr_norm_lim)
+        print "\n\n"
+        results.append(perf)
     print str(np.mean(results))
