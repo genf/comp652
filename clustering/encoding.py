@@ -131,8 +131,7 @@ if __name__=='__main__':
     for name, est in estimators.items():
         fig = plt.figure(fignum, figsize=(4, 3))
         plt.clf()
-        ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
-
+        
         ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
 
         plt.cla()

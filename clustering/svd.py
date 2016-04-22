@@ -15,6 +15,15 @@ if __name__=='__main__':
 
     speaches, speakers = csv_to_array(csv_file)
 
+    speaks = []
+    speech = []
+    for speaker, text in zip(speakers, speaches):
+        if speaker.strip() not in ('JFK','REAGAN', 'WEBB', 'CHAFEE', 'JINDAL', 'PERRY'):
+            speaks.append(speaker)
+            speech.append(text)
+
+    speaches=speech
+
     vec_c = CountVectorizer(min_df=2, stop_words='english',strip_accents='ascii') 
     X_freq = vec_c.fit_transform(speaches)
 
@@ -34,6 +43,8 @@ if __name__=='__main__':
               'k_means:4 clusters': KMeans(n_clusters=8),
               'k_means:6 clusters': KMeans(n_clusters=15)}    
     ## graphing
+
+
 
     for t in [svd_freq,svd_tfidf]:
     #for t in [svd_freq]:
